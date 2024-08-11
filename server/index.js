@@ -17,6 +17,16 @@ app.use(express.json());
 
 app.use(cors());
 
+app.get("/", (req, res) => {
+  res.send(`
+    <!DOCTYPE html>
+      <html>
+        <title>Heliverse Backend</title>
+        <h1>Heliverse Backend</h1>
+      </html>
+    `);
+});
+
 app.use("/api/v1/principal", principalRoutes);
 app.use("/api/v1/teacher", teacherRoutes);
 app.use("/api/v1/student", studentRoutes);

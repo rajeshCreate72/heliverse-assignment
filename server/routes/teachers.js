@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Teachers = require("../models/teachers");
+const authenticateToken = require("../middleware/auth");
 const router = express.Router();
 
 // Create Teachers
@@ -46,14 +47,12 @@ router.post("/post-mail", async (res, req) => {
 
   try {
     const teacher = await Teachers.findOne({ email: email });
-    let isTeacher = false;
     if (!teacher) {
       return res
         .status(401)
         .json({ message: "Ask Pricipal to create account" });
     }
-    isTeacher = true;
-    res.status(200).json({ message: isTeacher });
+    res.status(200).json({ message: "Teacher found" });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ message: "Network error" });
@@ -65,7 +64,6 @@ router.post("/post-password", async (res, req) => {
 
   try {
     const teacher = await Teachers.findOne({ email: email });
-    let toLogin = false;
     if (!teacher.password) {
       const hashPassword = await bcrypt.hash(password, 10);
       teacher.password = hashPassword;
@@ -76,8 +74,7 @@ router.post("/post-password", async (res, req) => {
         { id: teacher._id, email: teacher.email },
         process.env.JWT_SECRECT
       );
-      toLogin = true;
-      res.status(200).json({ message: toLogin });
+      res.status(200).json({ message: "Logging sucessful", token });
     }
 
     const checkPass = await bcrypt.compare(password, teacher.password);
@@ -91,6 +88,55 @@ router.post("/post-password", async (res, req) => {
     console.log(error.message);
     res.status(500).json({ message: "Network error" });
   }
+});
+
+router.put("/update/:email", async (req, res) => {
+  const { teacherEmail } = req.params;
+  const updateData = req.body;
+
+  try {
+    const updatedTeacher = await Teachers.findByIdAndUpdate(
+      teacherEmail,
+      updateData,
+      { new: true }
+    );
+
+    if (!updatedTeacher) {
+      return res.status(404).json({ message: "Teacher not found" });
+    }
+
+    res.status(200).json({
+      message: "Teacher's data updated successfully",
+      teacher: updatedTeacher,
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: "Error updating teacher's Data" });
+  }
+});
+
+router.delete("/delete/:email", async (req, res) => {
+  const { teacherEmail } = req.params;
+
+  try {
+    const deletedTeacher = await Teacher.findByIdAndDelete(teacherEmail);
+
+    if (!deletedTeacher) {
+      return res.status(404).json({ message: "Teacher not found" });
+    }
+
+    res.status(200).json({ message: "Teacher deleted successfully" });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: "Error deleting teacher" });
+  }
+});
+
+// Protected route for jwt auth
+router.get("/protected-route", authenticateToken, (req, res) => {
+  res
+    .status(200)
+    .json({ message: "This is a protected route", user: req.user });
 });
 
 module.exports = router;

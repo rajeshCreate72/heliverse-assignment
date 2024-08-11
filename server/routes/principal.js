@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const { MongoClient } = require("mongodb");
 const jwt = require("jsonwebtoken");
+const authenticateToken = require("../middleware/auth");
 const router = express.Router();
 
 //Creating client
@@ -34,6 +35,13 @@ router.post("/", async (req, res) => {
     console.log(error);
     res.status(500).json(error.message);
   }
+});
+
+// Protected route principal Authentication
+router.get("/protected-route", authenticateToken, (req, res) => {
+  res
+    .status(200)
+    .json({ message: "This is a protected route", user: req.user });
 });
 
 module.exports = router;

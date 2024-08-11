@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const studentsSchema = new mongoose.Schema({
-  studentId: {
+  sId: {
     type: String,
     require: true,
   },
@@ -12,6 +12,10 @@ const studentsSchema = new mongoose.Schema({
   class: {
     type: String,
     require: true,
+  },
+  password: {
+    type: String,
+    require: false,
   },
 });
 
