@@ -7,11 +7,19 @@ dotenv.config();
 
 connectDatabase();
 
+const principalRoutes = require("./routes/principal");
+const teacherRoutes = require("./routes/teachers");
+const studentRoutes = require("./routes/students");
+
 const app = express();
 
 app.use(express.json());
 
 app.use(cors());
+
+app.use("/api/v1/principal", principalRoutes);
+app.use("/api/v1/teacher", teacherRoutes);
+app.use("/api/v1/student", studentRoutes);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

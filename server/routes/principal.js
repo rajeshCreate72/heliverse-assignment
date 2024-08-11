@@ -1,18 +1,19 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
-const { MongoClient } = require("mongoose");
+const { MongoClient } = require("mongodb");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 
+//Creating client
 const client = new MongoClient(process.env.DB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 30000,
 });
 
+// Principal login
 router.post("/", async (req, res) => {
-  await client.connect();
-  const database = client.db("heliverse-assignment");
-  const collection = database.collection("Principal");
+  await client.connect(); // Connect to database
+  const database = client.db("heliverse-assignment"); //Getting database with name "heliverse-assignment"
+  const collection = database.collection("Principal"); // Getting the collection with "name"
   try {
     const principal = await collection.findOne({
       email: "principal@classroom.com",
@@ -28,9 +29,11 @@ router.post("/", async (req, res) => {
       { id: principal._id, email: principal.email },
       process.env.JWT_SECRECT
     );
-    res.status(200).json({ message: "Login successful" });
+    res.status(200).json({ message: "Login successful", token });
   } catch (error) {
     console.log(error);
     res.status(500).json(error.message);
   }
 });
+
+module.exports = router;

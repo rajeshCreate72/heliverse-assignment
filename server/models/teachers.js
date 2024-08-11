@@ -9,6 +9,10 @@ const teachersSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  password: {
+    type: String,
+    require: false,
+  },
   subject: {
     type: String,
     require: true,

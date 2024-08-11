@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const studentsSchema = new mongoose.Schema({
+  studentId: {
+    type: String,
+    require: true,
+  },
   name: {
     type: String,
     require: true,
@@ -11,6 +15,6 @@ const studentsSchema = new mongoose.Schema({
   },
 });
 
-const students = mongoose.model("Students", teachersSchema);
+const students = mongoose.model("Students", studentsSchema);
 
 module.exports = students;
