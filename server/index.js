@@ -19,7 +19,7 @@ app.options("*", cors());
 
 app.use(
   cors({
-    origin: ["https://quadiro-assignment-two.vercel.app"],
+    origin: ["https://heliverse-assignment-ak8o.vercel.app"],
     methods: ["POST", "GET", "UPDATE", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-type", "Authorization"],
     credentials: true,
