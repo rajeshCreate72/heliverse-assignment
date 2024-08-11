@@ -29,6 +29,7 @@ function App() {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        withCredentials: true,
       });
       dispatch(getMail(response.data.user.email));
     } catch (error) {

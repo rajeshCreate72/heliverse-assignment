@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { PRINCIPAL_LOGIN } from "../url-config";
 import { login } from "../../service/slices/principalAuthSlice";
 import { useDispatch } from "react-redux";
@@ -10,15 +9,18 @@ function PrincipalLogin() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [response, setResponse] = useState("");
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(PRINCIPAL_LOGIN, {
-        password: password,
-      });
+      const response = await axios.post(
+        PRINCIPAL_LOGIN,
+        {
+          password: password,
+        },
+        { withCredentials: true }
+      );
       setResponse(response.data.message || "Login Successful");
       dispatch(login(response.data.token));
     } catch (error) {
