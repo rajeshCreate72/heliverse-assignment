@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Homepage from "./components/Homepage/Homepage";
 import {
   BrowserRouter as Router,
@@ -5,34 +6,34 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import "./App.css";
+import axios from "axios";
 import TeacherLogin from "./components/LoginPage/TeacherLogin";
 import StudentLogin from "./components/LoginPage/StudentLogin";
 import PrincipalLogin from "./components/LoginPage/PrincipalLogin";
-import "./App.css";
-// import Dashboard from "./components/Dashboard/Dashboard";
-import { useSelector } from "react-redux";
-import PrincipalDashboard from "./components/Dashboard/PrincipalDashboard";
-import TeacherDashboard from "./components/Dashboard/TeacherDashboard";
-import StudentDashboard from "./components/Dashboard/StudentDashboard";
-import axios from "axios";
-import { useEffect } from "react";
+import PrincipalDashboard from "./components/PrincipalDashboard/PrincipalDashboard";
+import TeacherDashboard from "./components//TeacherDashboard/TeacherDashboard";
+import StudentDashboard from "./components/StudentDashboard/StudentDashboard";
+import { PRINCIPAL_VERIFICATION } from "./components/url-config";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, getMail } from "./service/slices/principalAuthSlice";
 
 function App() {
-  let isAuthenticated = !!sessionStorage.getItem("authToken");
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const dispatch = useDispatch();
 
   const handleTokenAuth = async (e) => {
     const token = sessionStorage.getItem("authToken");
     try {
-      const response = await axios.get(process.env.PR_ROUTE, {
+      const response = await axios.get(PRINCIPAL_VERIFICATION, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
-      console.log(response);
+      dispatch(getMail(response.data.user.email));
     } catch (error) {
       console.log(error);
-      isAuthenticated = false;
+      dispatch(logout());
     }
   };
 

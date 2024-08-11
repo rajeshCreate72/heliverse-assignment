@@ -15,6 +15,11 @@ const STUDENT_CONFIG_PASS = `${BASE_URL}/api/v1/student/post-password`;
 const STUDENT_DETAILS_UPDATE = `${BASE_URL}/api/v1/update/:sId`;
 const STUDENT_DETAILS_DELETE = `${BASE_URL}/api/v1/delete/:sId`;
 
+// Token Verification
+const PRINCIPAL_VERIFICATION = `${BASE_URL}/api/v1/principal/protected-route`;
+const TEACHER_VERIFICATION = `${BASE_URL}/api/v1/teacher/protected-route`;
+const STUDENT_VERIFICATION = `${BASE_URL}/api/v1/student/protected-route`;
+
 export {
   PRINCIPAL_LOGIN,
   TEACHERS_CONFIG_MAIL,
@@ -25,4 +30,7 @@ export {
   STUDENT_CONFIG_PASS,
   STUDENT_DETAILS_UPDATE,
   STUDENT_DETAILS_DELETE,
+  PRINCIPAL_VERIFICATION,
+  TEACHER_VERIFICATION,
+  STUDENT_VERIFICATION,
 };

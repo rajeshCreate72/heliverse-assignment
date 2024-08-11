@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PRINCIPAL_LOGIN } from "../url-config";
-import { login } from "../../service/slices/authSlice";
+import { login } from "../../service/slices/principalAuthSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import "./Login.css";
@@ -16,15 +16,11 @@ function PrincipalLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/v1/principal",
-        {
-          password: password,
-        }
-      );
-      dispatch(login(response.data.token));
+      const response = await axios.post(PRINCIPAL_LOGIN, {
+        password: password,
+      });
       setResponse(response.data.message || "Login Successful");
-      navigate("/principal-dashboard");
+      dispatch(login(response.data.token));
     } catch (error) {
       console.log(error.message);
       setError(
