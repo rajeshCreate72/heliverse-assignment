@@ -14,13 +14,9 @@ function PrincipalLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        PRINCIPAL_LOGIN,
-        {
-          password: password,
-        },
-        { withCredentials: true }
-      );
+      const response = await axios.post(PRINCIPAL_LOGIN, {
+        password: password,
+      });
       setResponse(response.data.message || "Login Successful");
       dispatch(login(response.data.token));
     } catch (error) {

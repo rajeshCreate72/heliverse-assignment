@@ -29,7 +29,7 @@ function PrincipalDashboard() {
         </section>
         <section className="flex flex-row items-center justify-center">
           <button className="flex flex-row items-center justify-center h-[40%] w-[70%] bg-blue-200 p-3 rounded-lg">
-            <p>{email}</p>
+            <p>principal@classroom.com</p>
           </button>
         </section>
         <div className="hidden">
