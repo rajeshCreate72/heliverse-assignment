@@ -15,8 +15,6 @@ const app = express();
 
 app.use(express.json());
 
-app.options("*", cors());
-
 app.use(
   cors({
     origin: ["https://heliverse-assignment-ak8o.vercel.app"],
