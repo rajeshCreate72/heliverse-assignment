@@ -7,3 +7,7 @@
   height: 128px;
   width: 128px;
 }
+
+.bg-button {
+  background-color: rgba(109, 168, 220, 0.848);
+}

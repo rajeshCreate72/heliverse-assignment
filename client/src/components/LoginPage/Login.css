@@ -1,0 +1,7 @@
+.bg-button {
+  background-color: rgba(109, 168, 220, 0.848);
+}
+
+.move-center {
+  transform: translateY(30vh);
+}

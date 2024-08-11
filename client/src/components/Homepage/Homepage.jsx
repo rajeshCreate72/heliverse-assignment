@@ -8,21 +8,42 @@ import "./homepage.css";
 function Homepage() {
   const navigate = useNavigate();
   return (
-    <div className="flex flex-row justify-between p-10">
-      <div>
+    <div className="flex flex-col items-center justify-center p-10">
+      <div className="flex flex-row items-center justify-between p-10">
         <img className="images" src={principalImage} alt="principal-image" />
-        <h3>Principal Login</h3>
-        <button onClick={() => navigate("/principal-login")}>Login</button>
+        <div className="flex flex-col items-center p-10">
+          <h2 className="text-3xl">Principal Login</h2>
+          <button
+            className="text-2xl bg-button p-2 m-2 rounded-md"
+            onClick={() => navigate("/principal-login")}
+          >
+            Login
+          </button>
+        </div>
       </div>
-      <div>
+      <div className="flex flex-row items-center justify-between p-10">
         <img className="images" src={teacherImage} alt="teacher-image" />
-        <h3>Teacher Login</h3>
-        <button onClick={() => navigate("/teacher-login")}>Login</button>
+        <div className="flex flex-col items-center p-10">
+          <h3 className="text-3xl">Teacher Login</h3>
+          <button
+            className="text-2xl bg-button p-2 m-2 rounded-md"
+            onClick={() => navigate("/teacher-login")}
+          >
+            Login
+          </button>
+        </div>
       </div>
-      <div>
+      <div className="flex flex-row items-center justify-between p-10">
         <img className="images" src={studentImage} alt="student-image" />
-        <h3>Student Login</h3>
-        <button onClick={() => navigate("/student-login")}>Login</button>
+        <div className="flex flex-col items-center p-10">
+          <h3 className="text-3xl">Student Login</h3>
+          <button
+            className="text-2xl bg-button p-2 m-2 rounded-md"
+            onClick={() => navigate("/student-login")}
+          >
+            Login
+          </button>
+        </div>
       </div>
     </div>
   );
