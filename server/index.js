@@ -15,7 +15,16 @@ const app = express();
 
 app.use(express.json());
 
-app.use(cors());
+app.options("*", cors());
+
+app.use(
+  cors({
+    origin: ["https://quadiro-assignment-two.vercel.app"],
+    methods: ["POST", "GET", "UPDATE", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-type", "Authorization"],
+    credentials: true,
+  })
+);
 
 app.get("/", (req, res) => {
   res.send(`

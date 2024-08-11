@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = "https://heliverse-assignment-ruddy.vercel.app";
 
 // Principal details handling
 const PRINCIPAL_LOGIN = `${BASE_URL}/api/v1/principal`;
